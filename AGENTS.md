@@ -49,5 +49,5 @@ No asumas que estos puntos ya están decididos — confirmá con el usuario ante
 
 - Los documentos de producto y negocio se escriben en español (Argentina). El código y sus comentarios, en inglés, salvo que el usuario indique lo contrario.
 - Este repo pertenece a `Dooh-Agency/Agente-Inmobiliario` en GitHub, rama principal `main`.
-- No se necesita dominio propio ni cuentas comerciales activadas mientras el proyecto esté en etapa de piloto cerrado (Fernanda + hijo, luego agentes beta conocidos).
+- No se necesita dominio propio ni cuentas comerciales activadas mientras el proyecto esté en etapa de piloto cerrado (equipo fundador, luego agentes beta conocidos).
 - Antes de tomar decisiones de alcance, arquitectura o negocio no cubiertas explícitamente en `docs/producto.md`, preguntar en vez de asumir — es un producto real con validación comercial en curso, no un proyecto de práctica.

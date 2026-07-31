@@ -6,9 +6,9 @@
 
 ## 0. Qué cambia respecto a la versión anterior
 
-La versión original (29/07/2026) planteaba construir el sistema como herramienta interna de Fernanda y su hijo, validarla 6-8 semanas, y recién después evaluar si convenía convertirla en un micro-SaaS.
+La versión original (29/07/2026) planteaba construir el sistema como herramienta interna del equipo fundador, validarla 6-8 semanas, y recién después evaluar si convenía convertirla en un micro-SaaS.
 
-Esta versión parte de una decisión distinta: **el producto se construye desde el día uno como un producto de DOOH para monetizar por suscripción mensual**, al estilo OpenAI/ChatGPT (cuenta, planes, fee recurrente). Esto no significa saltear la validación: Fernanda y su hijo siguen siendo los primeros usuarios reales, y desde temprano pueden sumarse otros usuarios conocidos/beta — pero la arquitectura, el pricing y el posicionamiento se piensan como producto desde el principio, no como una migración posterior.
+Esta versión parte de una decisión distinta: **el producto se construye desde el día uno como un producto de DOOH para monetizar por suscripción mensual**, al estilo OpenAI/ChatGPT (cuenta, planes, fee recurrente). Esto no significa saltear la validación: el equipo fundador sigue siendo el primer usuario real, y desde temprano pueden sumarse otros usuarios conocidos/beta — pero la arquitectura, el pricing y el posicionamiento se piensan como producto desde el principio, no como una migración posterior.
 
 Lo que **no cambia**: el problema que resuelve, la filosofía "IA propone, humano aprueba", el enfoque agent-first/WhatsApp-first, y el alcance funcional del MVP descrito en las secciones 5 a 8.
 
@@ -16,13 +16,13 @@ Lo que **sí cambia**: arquitectura de datos (multi-tenant desde el inicio), roa
 
 ## 1. Resumen ejecutivo
 
-El proyecto es un producto SaaS —desarrollado y operado por DOOH— para que agentes inmobiliarios gestionen contactos, conversaciones, seguimientos, visitas y oportunidades desde un único centro de control. Los primeros usuarios son Fernanda y su hijo, seguidos tempranamente por un grupo reducido de agentes conocidos en modalidad beta.
+El proyecto es un producto SaaS —desarrollado y operado por DOOH— para que agentes inmobiliarios gestionen contactos, conversaciones, seguimientos, visitas y oportunidades desde un único centro de control. Los primeros usuarios son el equipo fundador, que opera como organización piloto, seguido tempranamente por un grupo reducido de agentes conocidos en modalidad beta.
 
 No es un sistema para administrar una inmobiliaria ni un portal de publicación de propiedades. Es un **copiloto operativo para agentes**, centrado en el trabajo cotidiano: recibir consultas, entenderlas, responder a tiempo, coordinar acciones y no perder oportunidades.
 
 La inteligencia artificial no reemplaza al agente ni envía mensajes sensibles de forma autónoma. Clasifica, ordena, propone respuestas y alerta; las personas revisan, aprueban y sostienen la relación comercial.
 
-La estrategia es construir el producto con arquitectura multi-tenant desde el inicio, operarlo primero con Fernanda/hijo y un puñado de agentes beta, y escalar la base de clientes pagos una vez validado el flujo, bajo la marca DOOH.
+La estrategia es construir el producto con arquitectura multi-tenant desde el inicio, operarlo primero con el equipo fundador y un puñado de agentes beta, y escalar la base de clientes pagos una vez validado el flujo, bajo la marca DOOH.
 
 ## 2. Problema que resuelve
 
@@ -46,8 +46,8 @@ La promesa del producto es sencilla:
 
 | Rol | Responsabilidad principal |
 |---|---|
-| Fernanda | Control de calidad, priorización, base de datos, automatizaciones, borradores y aprobación de mensajes |
-| Agente comercial (hijo) | Respuesta comercial, coordinación de visitas, muestras, negociación y cierre |
+| Coordinación y calidad | Control de calidad, priorización, base de datos, automatizaciones, borradores y aprobación de mensajes |
+| Agente comercial | Respuesta comercial, coordinación de visitas, muestras, negociación y cierre |
 
 A estos se suman, desde etapas tempranas, agentes conocidos invitados como usuarios beta, cada uno en su propia organización aislada (ver sección 9).
 
@@ -173,7 +173,7 @@ Las integraciones de Meta deberán usar APIs oficiales. Esto protege los número
 2. Arquitectura modular: cada integración y automatización puede evolucionar sin rehacer el núcleo.
 3. Seguridad y trazabilidad desde el inicio: usuarios, permisos, auditoría y respaldos.
 4. Interfaz muy simple, núcleo preparado para crecer.
-5. **Multi-tenant desde el inicio:** aislamiento por organización (`organizations`) implementado en el modelo de datos y en la capa de permisos desde la Fase 1, no como migración futura. La organización de Fernanda/hijo es el primer tenant, no un caso especial sin aislamiento.
+5. **Multi-tenant desde el inicio:** aislamiento por organización (`organizations`) implementado en el modelo de datos y en la capa de permisos desde la Fase 1, no como migración futura. La organización piloto del equipo fundador es el primer tenant, no un caso especial sin aislamiento.
 
 ### Stack inicial
 
@@ -194,7 +194,7 @@ Make puede utilizarse para pruebas rápidas o flujos auxiliares, pero no deberí
 
 Las entidades mínimas serán:
 
-- `organizations`: tenant de cada agente/equipo — aislamiento de datos activo desde el primer usuario, incluyendo Fernanda/hijo;
+- `organizations`: tenant de cada agente/equipo — aislamiento de datos activo desde el primer usuario, incluyendo la organización piloto del equipo fundador;
 - `users`: usuarios, roles y permisos, vinculados a una organización;
 - `subscriptions`: plan contratado, estado de pago y límites de uso por organización;
 - `contacts`: personas y datos de contacto;
@@ -223,7 +223,7 @@ La experiencia debe sentirse como una bandeja de oportunidades, no como un softw
 ## 11. Seguridad, propiedad de datos y operación
 
 - Cada persona accede con su propio usuario; no se comparte contraseña para operar.
-- Cada organización (tenant) tiene sus datos aislados del resto, incluida la de Fernanda/hijo.
+- Cada organización (tenant) tiene sus datos aislados del resto, incluida la del equipo fundador.
 - Puede usarse un Gmail gratuito exclusivo como cuenta administrativa, titular y de recuperación de servicios, mientras no se opere bajo dominio propio.
 - La autenticación en dos pasos y los métodos de recuperación deben quedar documentados.
 - Aplicar permisos por usuario y registro de actividad.
@@ -244,7 +244,7 @@ Para la etapa de desarrollo y piloto cerrado, una URL gratuita (`nombre-del-proy
 
 ### Fase 1 — Centro de control funcional (multi-tenant desde el inicio)
 
-- Login y organizaciones/usuarios (Fernanda + hijo como primer tenant).
+- Login y organizaciones/usuarios (el equipo fundador como primer tenant).
 - Contactos, propiedades, tareas, agenda e historial manual, con aislamiento por organización.
 - Estados, responsable y próxima acción obligatoria.
 - Inicio con métricas y alertas simples.
@@ -278,7 +278,7 @@ Para la etapa de desarrollo y piloto cerrado, una URL gratuita (`nombre-del-proy
 
 ### Desarrollo contratado vs. desarrollo propio con Codex
 
-La estimación de desarrollo contratado incluía definición funcional, arquitectura, UX/UI, programación, integraciones, pruebas, seguridad y despliegue. Al construirlo Fernanda con Codex, ese gasto se reemplaza principalmente por tiempo propio y servicios externos.
+La estimación de desarrollo contratado incluía definición funcional, arquitectura, UX/UI, programación, integraciones, pruebas, seguridad y despliegue. Al construirlo el equipo fundador con Codex, ese gasto se reemplaza principalmente por tiempo propio y servicios externos.
 
 | Alcance contratado de referencia | Estimación |
 |---|---:|
@@ -331,7 +331,7 @@ La oportunidad debe tratarse como **micro-SaaS especializado de DOOH**, no como 
 
 La IA y WhatsApp no deben ofrecerse como consumo ilimitado. Se puede incluir una cuota razonable y cobrar extras por créditos o uso adicional.
 
-Fernanda/hijo y los agentes beta iniciales pueden operar sin cargo o con un plan fundador simbólico mientras dure la validación; el modelo de precios ya queda definido en la arquitectura (tabla `subscriptions`) para activarse sin rehacer el sistema.
+El equipo fundador y los agentes beta iniciales pueden operar sin cargo o con un plan fundador simbólico mientras dure la validación; el modelo de precios ya queda definido en la arquitectura (tabla `subscriptions`) para activarse sin rehacer el sistema.
 
 ### Escenarios de facturación
 
@@ -348,7 +348,7 @@ Esto representa facturación bruta, no ganancia. Al inicio, el costo dominante s
 
 ### Validación comercial
 
-1. Usarlo con Fernanda/hijo como primer tenant real desde el arranque de la Fase 1.
+1. Usarlo con el equipo fundador como primer tenant real desde el arranque de la Fase 1.
 2. Invitar tempranamente a un grupo reducido de agentes conocidos como usuarios beta (Fase 2), cada uno aislado en su propia organización.
 3. Medir tiempo de respuesta, seguimientos recuperados, visitas agendadas, oportunidades reactivadas y horas ahorradas, por organización.
 4. Ofrecer a los beta un plan fundador acompañado, con expectativa de pago al terminar el período de prueba, en lugar de una prueba indefinida.
@@ -360,7 +360,7 @@ La señal de valor no será "les gusta la IA", sino que el producto ayude a resp
 
 - Se construye primero como app web privada y responsive; no como app nativa para stores.
 - El producto se desarrolla y opera bajo la marca DOOH, con arquitectura multi-tenant desde el inicio.
-- Fernanda y su hijo son el primer tenant/caso de uso real; agentes conocidos se suman como beta desde etapas tempranas, no como paso posterior a una validación cerrada.
+- El equipo fundador es el primer tenant/caso de uso real; agentes conocidos se suman como beta desde etapas tempranas, no como paso posterior a una validación cerrada.
 - Los contactos pueden llegar por WhatsApp, Instagram o carga manual.
 - La base de datos es propia; el sistema no depende de planillas.
 - No se necesita dominio propio para el piloto cerrado; se evalúa dominio DOOH al pasar a beta abierta/comercialización.
@@ -376,7 +376,7 @@ La señal de valor no será "les gusta la IA", sino que el producto ayude a resp
 3. Diseñar en Figma las pantallas iniciales: Inicio, Bandeja, Contacto, Tareas/Agenda, Propiedades, y login/onboarding con identidad DOOH.
 4. Crear proyecto técnico: repositorio (ya existe cuenta de GitHub), Netlify y Supabase en plan gratuito, con modelo `organizations`/`subscriptions` desde el primer commit.
 5. Construir Fase 1 sin esperar integraciones de Meta, con aislamiento multi-tenant activo desde el principio.
-6. Cargar casos reales de Fernanda/hijo y probar el flujo a diario.
+6. Cargar casos reales del equipo fundador y probar el flujo a diario.
 7. En paralelo a la validación interna, identificar y preparar la invitación a los primeros agentes beta conocidos.
 8. Antes de invitar al primer agente beta, resolver Términos de Servicio, Política de Privacidad y la consulta legal de protección de datos (sección 17).
 9. Recién cuando el núcleo esté validado con el piloto y los beta, solicitar/configurar canales oficiales, incorporar IA y activar cobros.
@@ -402,7 +402,7 @@ Este documento cubre bien el diseño de producto, funcionalidad y arquitectura t
 
 ### UX / investigación con usuarios
 
-- El diseño de estados, campos y prioridades está validado solo con la experiencia de Fernanda y su hijo. Antes de escalar a beta conviene contrastarlo con 2-3 agentes ajenos al núcleo familiar, para detectar sesgos de un caso único.
+- El diseño de estados, campos y prioridades está validado solo con la experiencia del equipo fundador. Antes de escalar a beta conviene contrastarlo con 2-3 agentes ajenos a ese equipo, para detectar sesgos de un caso único.
 - Recomendable una ronda de entrevistas o testeo de las pantallas de Figma con esos agentes antes de construir la versión final de cada pantalla.
 
 ### Seguridad
@@ -410,4 +410,4 @@ Este documento cubre bien el diseño de producto, funcionalidad y arquitectura t
 - Falta un análisis de amenazas formal y la definición de objetivos de recuperación (RTO/RPO) para los respaldos, algo esperable antes de manejar datos de clientes de terceros a través de múltiples organizaciones.
 - Recomendable una revisión de seguridad (aunque sea informal, con checklist) antes de abrir el primer tenant externo.
 
-Ninguno de estos puntos frena el inicio del desarrollo técnico del MVP (Fase 0-1 con Fernanda/hijo como único tenant). El punto verdaderamente bloqueante es el legal/protección de datos, y aplica en el momento en que se invite al primer agente beta con contactos reales de terceros — no antes.
+Ninguno de estos puntos frena el inicio del desarrollo técnico del MVP (Fase 0-1 con el equipo fundador como único tenant). El punto verdaderamente bloqueante es el legal/protección de datos, y aplica en el momento en que se invite al primer agente beta con contactos reales de terceros — no antes.
