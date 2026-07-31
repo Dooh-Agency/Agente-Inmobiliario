@@ -8,6 +8,8 @@ Un copiloto operativo SaaS para agentes inmobiliarios, desarrollado y operado po
 
 El documento de producto completo, con alcance funcional, arquitectura, roadmap y modelo de negocio, vive en [`docs/producto.md`](docs/producto.md). **Es la fuente de verdad** — cualquier decisión de diseño o alcance debe ser consistente con ese documento. Si algo que se pide contradice lo que dice ese documento, señalalo antes de implementarlo en vez de asumir que el documento quedó desactualizado.
 
+También existe [`docs/producto.html`](docs/producto.html): una versión renderizada del mismo contenido (con identidad visual DOOH y tabla de contenidos navegable) pensada para compartir o leer fuera de un editor de markdown. Es una copia de lectura, no la fuente de verdad — cuando `docs/producto.md` cambie, `docs/producto.html` debe regenerarse para no quedar desactualizado.
+
 ## Estado actual
 
 Etapa de planificación / pre-código. Todavía no hay aplicación construida. El roadmap (sección 12 de `docs/producto.md`) define las fases: Fase 0 (descubrimiento y diseño) → Fase 1 (centro de control funcional) → Fase 2 (canales y beta) → Fase 3 (IA y automatizaciones) → Fase 4 (monetización). No saltear fases ni construir funcionalidad de una fase posterior sin que la anterior esté resuelta, salvo que el usuario lo pida explícitamente.
