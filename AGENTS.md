@@ -12,7 +12,9 @@ También existe [`docs/producto.html`](docs/producto.html): una versión renderi
 
 ## Estado actual
 
-Etapa de planificación / pre-código. Todavía no hay aplicación construida. El roadmap (sección 12 de `docs/producto.md`) define las fases: Fase 0 (descubrimiento y diseño) → Fase 1 (centro de control funcional) → Fase 2 (canales y beta) → Fase 3 (IA y automatizaciones) → Fase 4 (monetización). No saltear fases ni construir funcionalidad de una fase posterior sin que la anterior esté resuelta, salvo que el usuario lo pida explícitamente.
+Etapa de planificación / pre-código. Todavía no hay aplicación construida. El roadmap de producto (sección 12 de `docs/producto.md`) define las fases: Fase 0 (descubrimiento y diseño) → Fase 1 (centro de control funcional) → Fase 2 (canales y beta) → Fase 3 (IA y automatizaciones) → Fase 4 (monetización). [`docs/roadmap-tecnico.md`](docs/roadmap-tecnico.md) traduce esas fases a versiones técnicas concretas (V0, V0.1, V0.2, V1.0, V1.x) con entregables y criterio de salida por versión. No saltear fases/versiones ni construir funcionalidad de una etapa posterior sin que la anterior esté resuelta, salvo que el usuario lo pida explícitamente.
+
+La arquitectura técnica completa (stack, capas, modelo de datos, entornos, CI/CD) está documentada en [`docs/arquitectura.md`](docs/arquitectura.md). Las decisiones individuales de stack, con alternativas evaluadas y consecuencias, están registradas como ADRs en [`docs/adr/`](docs/adr/README.md) — consultalas antes de cuestionar o cambiar una decisión técnica ya tomada (framework, estructura del repo, mecanismo de multi-tenancy, etc.), y sumá un ADR nuevo si tomás una decisión de arquitectura equivalente que no esté cubierta todavía.
 
 ## Reglas de producto no negociables
 
