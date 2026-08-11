@@ -47,3 +47,4 @@ Qué se gana, qué se resigna, y qué queda pendiente de revisar a futuro.
 | [0010](0010-testing-vitest-playwright.md) | Testing: Vitest + Playwright |
 | [0011](0011-cicd-github-actions-netlify.md) | CI/CD: GitHub Actions + Netlify |
 | [0012](0012-entornos-dev-staging-prod.md) | Estrategia de entornos: local / staging / producción |
+| [0013](0013-datos-semilla-organizacion-demo.md) | Datos semilla y organización demo en producción |

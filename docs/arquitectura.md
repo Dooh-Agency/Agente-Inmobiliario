@@ -56,6 +56,7 @@ Heredados de `docs/producto.md` sección 9, con su traducción técnica:
 | Testing | Vitest (unitario) + Playwright (end-to-end) | [ADR-0010](adr/0010-testing-vitest-playwright.md) |
 | CI/CD | GitHub Actions + despliegue en Netlify | [ADR-0011](adr/0011-cicd-github-actions-netlify.md) |
 | Entornos | Local / staging / producción, con proyectos Supabase separados | [ADR-0012](adr/0012-entornos-dev-staging-prod.md) |
+| Datos demo | Organización `is_demo` con datos sintéticos, también en producción | [ADR-0013](adr/0013-datos-semilla-organizacion-demo.md) |
 
 Componentes definidos en `docs/producto.md` pero **fuera de alcance de la V0** (se detallan en `docs/roadmap-tecnico.md`): Meta Cloud API (WhatsApp/Instagram), Google Calendar, n8n, pasarela de cobro.
 
@@ -70,6 +71,7 @@ Convenciones técnicas para el schema (a implementar como migraciones SQL versio
 - Las claves primarias son `uuid` generadas con `gen_random_uuid()`, no seriales incrementales — evita filtrar el volumen de registros entre organizaciones y facilita sincronización futura si hiciera falta.
 - Los `enum` de Postgres se usan para campos de estado cerrados (`contacts.status`, `tasks.status`), reflejando los estados de `docs/producto.md` sección 5 (`Nuevo → Calificado → Visita → Negociación → Cerrado`, más los complementarios).
 - Cada política RLS se escribe junto con la migración que crea la tabla, nunca como paso separado posterior — ver [ADR-0006](adr/0006-multi-tenant-rls.md).
+- `organizations` incluye una columna `is_demo boolean not null default false`, que marca la organización de demostración sembrada con datos sintéticos (ver [ADR-0013](adr/0013-datos-semilla-organizacion-demo.md)). Cualquier query de métricas/reportes agregados filtra `is_demo = false` salvo que se pida explícitamente lo contrario.
 
 ## 5. Capas de la aplicación
 

@@ -17,9 +17,10 @@ Entregables:
 - Pipeline de CI en GitHub Actions: lint, typecheck, test, build en cada PR.
 - Deploy conectado a Netlify: producción sobre `main`, deploy preview por PR.
 - `.env.example` documentado y variables reales cargadas en Netlify por entorno.
+- Script de seed idempotente que crea una organización `is_demo = true` con contactos, propiedades, conversaciones y tareas ficticias pero realistas, ejecutado en local, staging **y producción** — para poder mostrar el producto a un agente potencial desde el día 1 (ver [ADR-0013](adr/0013-datos-semilla-organizacion-demo.md)).
 - ADRs de esta etapa aprobados (`docs/adr/`).
 
-**Criterio de salida:** se puede crear una organización, loguearse, y ver una pantalla vacía protegida por sesión, con CI verde y deploy automático funcionando en los tres entornos.
+**Criterio de salida:** se puede crear una organización, loguearse, y ver una pantalla vacía protegida por sesión, con CI verde y deploy automático funcionando en los tres entornos, y la organización demo visible y navegable en producción.
 
 **Fuera de alcance:** cualquier pantalla de negocio (contactos, propiedades, agenda), IA, canales.
 
@@ -38,6 +39,7 @@ Entregables:
 - Bandeja de aprobaciones funcional pero **sin origen automático de mensajes todavía** — se cargan manualmente o por nota de llamada, y el flujo de aprobar/editar/descartar ya queda operativo y auditado en `approvals`.
 - Flujo de alta de una nueva organización ya operativo (aunque todavía no se invite a nadie), para no tener que rehacer arquitectura cuando llegue la Fase 2.
 - Error tracking (Sentry u equivalente) integrado.
+- Banner/badge visible de "Demo" en la UI cuando el usuario está dentro de la organización `is_demo`, y el script de seed actualizado para poblar todas las pantallas nuevas de esta versión (antes solo tenía que sostener una app vacía).
 
 **Criterio de salida:** el equipo fundador reemplaza su operación manual actual por el sistema durante el uso diario real, sin depender de planillas ni de WhatsApp Web como fuente de verdad del seguimiento.
 
