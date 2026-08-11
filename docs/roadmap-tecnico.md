@@ -17,10 +17,10 @@ Entregables:
 - Pipeline de CI en GitHub Actions: lint, typecheck, test, build en cada PR.
 - Deploy conectado a Netlify: producción sobre `main`, deploy preview por PR.
 - `.env.example` documentado y variables reales cargadas en Netlify por entorno.
-- Script de seed idempotente que crea una organización `is_demo = true` con contactos, propiedades, conversaciones y tareas ficticias pero realistas, ejecutado en local, staging **y producción** — para poder mostrar el producto a un agente potencial desde el día 1 (ver [ADR-0013](adr/0013-datos-semilla-organizacion-demo.md)).
+- Script de seed idempotente que crea una organización `is_demo = true` con contactos, propiedades, conversaciones y tareas ficticias pero realistas, ejecutado en local, staging **y producción** (ver [ADR-0013](adr/0013-datos-semilla-organizacion-demo.md)). En la V0 esto puebla la base de datos; todavía no hay pantallas para navegarlo — eso llega en la V0.1.
 - ADRs de esta etapa aprobados (`docs/adr/`).
 
-**Criterio de salida:** se puede crear una organización, loguearse, y ver una pantalla vacía protegida por sesión, con CI verde y deploy automático funcionando en los tres entornos, y la organización demo visible y navegable en producción.
+**Criterio de salida:** se puede crear una organización, loguearse, y ver una pantalla vacía protegida por sesión, con CI verde y deploy automático funcionando en los tres entornos, y los datos de la organización demo cargados correctamente en producción (verificable por base de datos, aunque todavía sin UI para mostrarlos — ese es el criterio de salida de la V0.1).
 
 **Fuera de alcance:** cualquier pantalla de negocio (contactos, propiedades, agenda), IA, canales.
 
@@ -41,7 +41,7 @@ Entregables:
 - Error tracking (Sentry u equivalente) integrado.
 - Banner/badge visible de "Demo" en la UI cuando el usuario está dentro de la organización `is_demo`, y el script de seed actualizado para poblar todas las pantallas nuevas de esta versión (antes solo tenía que sostener una app vacía).
 
-**Criterio de salida:** el equipo fundador reemplaza su operación manual actual por el sistema durante el uso diario real, sin depender de planillas ni de WhatsApp Web como fuente de verdad del seguimiento.
+**Criterio de salida:** el equipo fundador reemplaza su operación manual actual por el sistema durante el uso diario real, sin depender de planillas ni de WhatsApp Web como fuente de verdad del seguimiento — y la organización demo ya es navegable en producción, con datos visibles en todas las pantallas construidas en esta versión, lista para mostrarle el producto a un agente potencial.
 
 **Fuera de alcance:** WhatsApp/Instagram, IA de clasificación o redacción, matching automático, cobros.
 
